@@ -3,6 +3,7 @@
 
 import os
 import traceback
+import random
 
 import discord
 from dotenv import load_dotenv
@@ -22,7 +23,7 @@ ASHADEDBLOBFISH = int(os.getenv("ASHADEDBLOBFISH_ID"))
 intents = discord.Intents.default() # The bot's intents must be passed to the discord.Client instance. discord.Intents.default() sets all 3 intents to False
 intents.message_content = True  # The only intent required by this bot is the message content intent. These intents must match those selected in your discord developer portal
 
-client = discord.Client(intents=intents)    # Creates an instance of discord.Client
+client = discord.Client(intents=intents)    # Creates an instance of discord.Client() with the intents from above
 
 
 # Async event definitions
@@ -86,6 +87,28 @@ async def on_message(message):
                     await msgg.delete()
 
             await message.channel.send(f"{n} messages deleted")
+
+    # Fun function to make sven randomly say a few phrases when a user sends "sven quack"
+    if message.content == "sven quack":
+        
+        rand = random.randrange(1, 7)
+
+        if rand == 1:
+            msg = "quack"
+        elif rand == 2:
+            msg = "quack quack"
+        elif rand == 3:
+            msg = "*quack*"
+        elif rand == 4:
+            msg = "*quack quack*"
+        elif rand == 5:
+            msg = "quack quack, beep boop"
+        elif rand == 6:
+            msg = "*quack quack* **beep boop**"
+
+        await message.channel.send(msg)
+        
+
 
         
 
